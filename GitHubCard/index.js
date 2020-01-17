@@ -35,7 +35,15 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+	"tetondan",
+	"dustinmyers",
+	"justsml",
+	"luishrd",
+	"bigknell",
+	"LeoSanchez89",
+	"pvaidya56"
+];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -100,51 +108,19 @@ function createCard(object) {
 
 const cards = document.querySelector(".cards");
 
-axios
-	.get("https://api.github.com/users/LeoSanchez89")
-	.then(response => {
-		const newUser = createCard(response.data);
-		cards.appendChild(newUser);
-		//   response.data.forEach(item => {
-		//   const newUser = createCard(item);
-		//   cards.appendChild(newUser);
-		// })
+followersArray
+	.forEach(item => {
+		let str1 = "https://api.github.com/users/";
+		let str2 = item;
+		let con = str1.concat(str2);
+		axios.get(con).then(response => {
+			const newUser = createCard(response.data);
+			cards.appendChild(newUser);
+		});
 	})
 	.catch(error => {
 		console.log("the data was not returned", error);
 	});
-
-// login: "LeoSanchez89";
-// id: 58442719;
-// node_id: "MDQ6VXNlcjU4NDQyNzE5";
-// avatar_url: "https://avatars0.githubusercontent.com/u/58442719?v=4";
-// gravatar_id: "";
-// url: "https://api.github.com/users/LeoSanchez89";
-// html_url: "https://github.com/LeoSanchez89";
-// followers_url: "https://api.github.com/users/LeoSanchez89/followers";
-// following_url: "https://api.github.com/users/LeoSanchez89/following{/other_user}";
-// gists_url: "https://api.github.com/users/LeoSanchez89/gists{/gist_id}";
-// starred_url: "https://api.github.com/users/LeoSanchez89/starred{/owner}{/repo}";
-// subscriptions_url: "https://api.github.com/users/LeoSanchez89/subscriptions";
-// organizations_url: "https://api.github.com/users/LeoSanchez89/orgs";
-// repos_url: "https://api.github.com/users/LeoSanchez89/repos";
-// events_url: "https://api.github.com/users/LeoSanchez89/events{/privacy}";
-// received_events_url: "https://api.github.com/users/LeoSanchez89/received_events";
-// type: "User";
-// site_admin: false;
-// name: null;
-// company: null;
-// blog: "";
-// location: null;
-// email: null;
-// hireable: null;
-// bio: null;
-// public_repos: 19;
-// public_gists: 0;
-// followers: 1;
-// following: 0;
-// created_at: "2019-12-02T19:02:56Z";
-// updated_at: "2020-01-17T03:36:25Z";
 
 /* List of LS Instructors Github username's: 
   tetondan
