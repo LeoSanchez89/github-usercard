@@ -3,6 +3,17 @@
            https://api.github.com/users/<your name>
 */
 
+// axios.get("https://api.github.com/users/LeoSanchez89")
+//   .then(response => {
+//     response.data.forEach(item => {
+//     const newUser = createCard(item);
+//     cards.appendChild(newUser);
+//   })
+// })
+// .catch(error => {
+//   console.log("the data was not returned", error)
+// })
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -43,8 +54,97 @@ const followersArray = [];
     <p>Bio: {users bio}</p>
   </div>
 </div>
-
 */
+function createCard(object) {
+	const userCard = document.createElement("div");
+	const userImg = document.createElement("img");
+	const cardInfo = document.createElement("div");
+	const name = document.createElement("h3");
+	const userName = document.createElement("p");
+	const userLocation = document.createElement("p");
+	const userProfile = document.createElement("p");
+	const pageLink = document.createElement("a");
+	const userFollowers = document.createElement("p");
+	const following = document.createElement("p");
+	const userBio = document.createElement("p");
+
+	userCard.appendChild(userImg);
+	userCard.appendChild(cardInfo);
+	cardInfo.appendChild(name);
+	cardInfo.appendChild(userName);
+	cardInfo.appendChild(userLocation);
+	cardInfo.appendChild(userProfile);
+	userProfile.appendChild(pageLink);
+	cardInfo.appendChild(userFollowers);
+	cardInfo.appendChild(following);
+	cardInfo.appendChild(userBio);
+
+	userCard.classList.add("card");
+	cardInfo.classList.add("card-info");
+	name.classList.add("name");
+	userName.classList.add("username");
+
+	userImg.src = object.avatar_url;
+	name.textContent = `${object.name}`;
+	userName.textContent = `${object.login}`;
+	userLocation.textContent = `Location: ${object.location}`;
+	// userProfile.textContent = `Profile:`;
+	pageLink.setAttribute("href", `${object.html_url}`);
+	pageLink.textContent = `Profile: ${object.html_url}`;
+	userFollowers.textContent = `Followers: ${object.followers}`;
+	following.textContent = `Following: ${object.following}`;
+	userBio.textContent = `Bio: ${object.bio}`;
+
+	return userCard;
+}
+
+const cards = document.querySelector(".cards");
+
+axios
+	.get("https://api.github.com/users/LeoSanchez89")
+	.then(response => {
+		const newUser = createCard(response.data);
+		cards.appendChild(newUser);
+		//   response.data.forEach(item => {
+		//   const newUser = createCard(item);
+		//   cards.appendChild(newUser);
+		// })
+	})
+	.catch(error => {
+		console.log("the data was not returned", error);
+	});
+
+// login: "LeoSanchez89";
+// id: 58442719;
+// node_id: "MDQ6VXNlcjU4NDQyNzE5";
+// avatar_url: "https://avatars0.githubusercontent.com/u/58442719?v=4";
+// gravatar_id: "";
+// url: "https://api.github.com/users/LeoSanchez89";
+// html_url: "https://github.com/LeoSanchez89";
+// followers_url: "https://api.github.com/users/LeoSanchez89/followers";
+// following_url: "https://api.github.com/users/LeoSanchez89/following{/other_user}";
+// gists_url: "https://api.github.com/users/LeoSanchez89/gists{/gist_id}";
+// starred_url: "https://api.github.com/users/LeoSanchez89/starred{/owner}{/repo}";
+// subscriptions_url: "https://api.github.com/users/LeoSanchez89/subscriptions";
+// organizations_url: "https://api.github.com/users/LeoSanchez89/orgs";
+// repos_url: "https://api.github.com/users/LeoSanchez89/repos";
+// events_url: "https://api.github.com/users/LeoSanchez89/events{/privacy}";
+// received_events_url: "https://api.github.com/users/LeoSanchez89/received_events";
+// type: "User";
+// site_admin: false;
+// name: null;
+// company: null;
+// blog: "";
+// location: null;
+// email: null;
+// hireable: null;
+// bio: null;
+// public_repos: 19;
+// public_gists: 0;
+// followers: 1;
+// following: 0;
+// created_at: "2019-12-02T19:02:56Z";
+// updated_at: "2020-01-17T03:36:25Z";
 
 /* List of LS Instructors Github username's: 
   tetondan
